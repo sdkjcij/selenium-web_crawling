@@ -21,19 +21,19 @@ driver.maximize_window()
 time.sleep(1)
 
 # 自動化操作,模擬滑鼠移動點擊
-move_to_element_location1 = driver.find_element_by_xpath('/html/body/header/div/section/nav/ul/li[2]/a')
+move_to_element_location1 = driver.find_element(By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/a')
 ActionChains(driver).move_to_element(move_to_element_location1).perform()
 time.sleep(1)
 
-move_to_element_location2 = driver.find_element(By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[3]/a')
+move_to_element_location2 = driver.find_element(By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[1]/a')
 ActionChains(driver).move_to_element(move_to_element_location2).perform()
 
 # Explicit Wait
 WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[3]/a'))
+    EC.presence_of_element_located((By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[1]/a'))
 )
 
-click_location1 = driver.find_element(By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[3]/a')
+click_location1 = driver.find_element(By.XPATH, '/html/body/header/div/section/nav/ul/li[2]/div/ul/li[1]/a')
 ActionChains(driver).click(click_location1).perform()
 
 WebDriverWait(driver, 10).until(
@@ -106,13 +106,13 @@ WebDriverWait(driver, 10).until(
 )
 
 # 取得電影宣傳圖
-movie_pic_path = os.path.join("Movie_pictures")
-os.mkdir(movie_pic_path)
+moviepic_path = os.path.join("Movie_pictures1")
+os.mkdir(moviepic_path)
 
 i = 1
 for m in range(j - 1):
     pic_name = "電影宣傳圖" + str(i) + ".jpg"
-    save_as = os.path.join(movie_pic_path, pic_name)
+    save_as = os.path.join(moviepic_path, pic_name)
     pics_path = "/html/body/article/ul/li[" + str(m + 1) + "]/figure/a/img"
     pics_src = driver.find_element(By.XPATH, pics_path)
     wget.download(pics_src.get_attribute("src"), save_as)
@@ -129,30 +129,30 @@ WebDriverWait(driver, 10).until(
 )
 
 for n in range(k - 1):
-    save_as = os.path.join(movie_pic_path, "電影宣傳圖" + str(i) + ".jpg")
+    save_as = os.path.join(moviepic_path, "電影宣傳圖" + str(i) + ".jpg")
     pics_path = "/html/body/article/ul/li[" + str(n + 1) + "]/figure/a/img"
     pics_src = driver.find_element(By.XPATH, pics_path)
     print(pics_src.get_attribute("src"))
     wget.download(pics_src.get_attribute("src"), save_as)
     i += 1
 
-ScrollTO_Bottom = "window.scrollTo(0,document.body.scrollHeight)"
-driver.execute_script(ScrollTO_Bottom)
-
-Third_page = driver.find_element(By.XPATH, '/html/body/article/section/ul/li[4]/a')
-ActionChains(driver).click(Third_page).perform()
-
-WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.XPATH, '/html/body/article/ul/li[1]/figure/a/img'))
-)
-
-for o in range(L - 1):
-    save_as = os.path.join(movie_pic_path, "電影宣傳圖" + str(i) + ".jpg")
-    pics_path = "/html/body/article/ul/li[" + str(o + 1) + "]/figure/a/img"
-    pics_src = driver.find_element(By.XPATH, pics_path)
-    print(pics_src.get_attribute("src"))
-    wget.download(pics_src.get_attribute("src"), save_as)
-    i += 1
+# ScrollTO_Bottom = "window.scrollTo(0,document.body.scrollHeight)"
+# driver.execute_script(ScrollTO_Bottom)
+#
+# Third_page = driver.find_element(By.XPATH, '/html/body/article/section/ul/li[4]/a')
+# ActionChains(driver).click(Third_page).perform()
+#
+# WebDriverWait(driver, 10).until(
+#     EC.presence_of_element_located((By.XPATH, '/html/body/article/ul/li[1]/figure/a/img'))
+# )
+#
+# for o in range(L - 1):
+#     save_as = os.path.join(moviepic_path, "電影宣傳圖" + str(i) + ".jpg")
+#     pics_path = "/html/body/article/ul/li[" + str(o + 1) + "]/figure/a/img"
+#     pics_src = driver.find_element(By.XPATH, pics_path)
+#     print(pics_src.get_attribute("src"))
+#     wget.download(pics_src.get_attribute("src"), save_as)
+#     i += 1
 
 time.sleep(2)
 # 關閉瀏覽器
